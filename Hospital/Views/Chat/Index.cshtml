@@ -1,48 +1,98 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="chat.css" />
-</head>
+﻿<link rel="stylesheet" href="chat.css" />
 
-<body>
+<style>
+    .chat-bot-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    overflow: hidden;
+}
 
-    <div>
-        <div class="chat-bot-container" id="chat-bot">
-            <img class="chat-bot-img" src="~/images/chatbot.gif" alt="" />
-            <div class="chat-bot-wrapper">
-                <div class="chat-bot-header">
-                    <div>
-                        <h3>ChatBot</h3>
-                    </div>
-                    <div class="header-right">
-                        <div>
-                            <button id="chat-bot-close-btn">x</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-bot-chat"></div>
-                <div class="chat-bot-user">
-                    <div class="chat-bot-user-wrapper">
-                        <input type="text"
-                               class="input-a name-input"
-                               placeholder="Ask here..." />
-                        <button class="submit-btn">Send</button>
-                    </div>
-                </div>
-                <div class="chat-bot-footer">
-                    <button class="footer-main-menu">Main Menu</button>
-                    <div class="footer-tooltips">
-                    </div>
-                </div>
-            </div>
+.chat-bot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #0078d7;
+    color: #fff;
+}
+
+.chat-bot-chat {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-bot-user {
+    display: flex;
+    padding: 10px;
+    gap: 8px;
+}
+
+.chat-bot-user input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.chat-bot-user button {
+    background-color: #0078d7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-bot-user button:hover {
+    background-color: #005a9e;
+}
+
+.footer-main-menu {
+    background-color: transparent;
+    border: none;
+    color: #0078d7;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.footer-main-menu:hover {
+    text-decoration: underline;
+}
+
+</style>
+
+
+
+<div class="chat-bot-container" id="chat-bot">
+    <img class="chat-bot-img" src="~/images/chatbot.gif" alt="Chatbot Icon" />
+    <div class="chat-bot-wrapper">
+        <div class="chat-bot-header">
+            <h3>ChatBot</h3>
+            <button id="chat-bot-close-btn" aria-label="Close Chatbot">✖</button>
+        </div>
+        <div class="chat-bot-chat" aria-live="polite">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chat-bot-user">
+            <input type="text"
+                   class="input-a name-input"
+                   placeholder="Type your message..."
+                   aria-label="Type your message" />
+            <button class="submit-btn" aria-label="Send Message">Send</button>
+        </div>
+        <div class="chat-bot-footer">
+            <button class="footer-main-menu" aria-label="Go to Main Menu">Main Menu</button>
         </div>
     </div>
+</div>
 
-
-
-    <script src="./chat.js"></script>
-</body>
-</html>
+<script src="./chat.js"></script>

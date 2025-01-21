@@ -1,7 +1,22 @@
+using Hospital.Models;
+using Hospital.Repository;
+using Microsoft.Data.SqlClient;
+using System.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// Add services to the container
+builder.Services.AddControllers();
+builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IRepository<ChatMessage>, Repository>();
+builder.Services.AddScoped<IRepository<ChatButton>, Repository>();
+builder.Services.AddScoped<IAppointmentRepository<Appointment>, AppointmentRepository>();
+
+
 
 var app = builder.Build();
 
@@ -9,7 +24,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+   
     app.UseHsts();
 }
 
