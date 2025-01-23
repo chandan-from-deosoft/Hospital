@@ -1,20 +1,25 @@
 using Hospital.Models;
-using Hospital.Repository;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using TestBot.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSwaggerGen();
 
 
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<IRepository<ChatMessage>, Repository>();
-builder.Services.AddScoped<IRepository<ChatButton>, Repository>();
-builder.Services.AddScoped<IAppointmentRepository<Appointment>, AppointmentRepository>();
+//builder.Services.AddScoped<IRepository<ChatMessage>, ChatMessageRepository>();
+
+builder.Services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+
+builder.Services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+builder.Services.AddScoped<IChatButtonRepository, ChatButtonRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 
 
@@ -27,6 +32,8 @@ if (!app.Environment.IsDevelopment())
    
     app.UseHsts();
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

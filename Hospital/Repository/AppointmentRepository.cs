@@ -1,12 +1,10 @@
 ﻿using System.Data;
 using Dapper;
-using Hospital.Models;
-using Microsoft.Data.SqlClient; // Use Microsoft.Data.SqlClient for SQL Server
+using TestBot.Model;
 
-
-namespace Hospital.Repository
+namespace TestBot.Repository
 {
-    public class AppointmentRepository : IAppointmentRepository<Appointment>
+    public class AppointmentRepository : IAppointmentRepository
     {
         private readonly IDbConnection _dbConnection;
 
@@ -15,20 +13,13 @@ namespace Hospital.Repository
             _dbConnection = dbConnection;
         }
 
-        public async Task<Appointment> GetAppointmentStatusAsync(int appointmentId)
+        public async Task<AppointmentStatus> GetAppointmentsAsync(int appointmentId)
         {
-            const string query = @"SELECT
-                                a.appointment_id AS AppointmentId,
-                                a.patient_name AS PatientName,
-                                d.name AS DoctorName,
-                                FORMAT(a.appointment_time, 'yyyy-MM-dd') AS AppointmentDate,
-                                FORMAT(a.appointment_time, 'hh:mm tt') AS AppointmentTime,
-                                a.status AS Status
-                              FROM Appointments a
-                              JOIN Doctors d ON a.doctor_id = d.doctor_id
-                              WHERE a.appointment_id = @AppointmentId";
-
-            return await _dbConnection.QuerySingleOrDefaultAsync<Appointment>(query, new { AppointmentId = appointmentId });
+            // var query = "SELECT [appointment_id],[patient_name],[doctor_id],[appointment_time],[status] FROM [Hospital].[dbo].[appointment] WHERE appointment_id = @Id";
+            var query = "SELECT [appointment_id] AS AppointmentId, [patient_name] AS PatientName, [doctor_id] AS DoctorId, [appointment_time] AS AppointmentTime, [status] AS Status FROM [Hospital].[dbo].[appointment] WHERE appointment_id = @Id\r\n";
+            return await _dbConnection.QueryFirstOrDefaultAsync<AppointmentStatus>(query, new { Id = appointmentId });
         }
     }
 }
+
+

@@ -1,9 +1,9 @@
-﻿using Hospital.Models;
+﻿using TestBot.Model;
 
-namespace Hospital.Repository
+namespace TestBot.Repository
 {
-    public interface IAppointmentRepository<T> where T : class
+    public interface IAppointmentRepository
     {
-        Task<Appointment> GetAppointmentStatusAsync(int appointmentId);
+        Task<AppointmentStatus> GetAppointmentsAsync(int appointmentId);
     }
 }
