@@ -14,7 +14,7 @@ namespace TestBot.Repository
             _dbConnection = dbConnection;
         }
 
-        public async Task<IEnumerable<ChatButtons>> GetChatButtonAsync(int chatDataId)
+        public async Task<IEnumerable<ChatButtons>> GetOptionsData(int chatDataId)
         {
             // Query to fetch all rows where chat_data_id matches the provided ID
             var query = "SELECT [Id], [chat_data_id] AS ChatDataId, [text] AS Text, [next] AS Next FROM [Hospital].[dbo].[chat_btn] WHERE chat_data_id = @ChatDataId";

@@ -5,6 +5,6 @@ namespace TestBot.Repository
     public interface IChatMessageRepository
     {
         Task<ChatMessage> GetGreetingMessageAsync();
-        Task<ChatMessage> GetChatMessageAsync(int id);
+        Task<ChatMessage> GetChatData(int id);
     }
 }

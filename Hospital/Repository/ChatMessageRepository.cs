@@ -20,7 +20,7 @@ namespace TestBot.Repository
             return await _dbConnection.QueryFirstOrDefaultAsync<ChatMessage>(query);
         }
 
-        public async Task<ChatMessage> GetChatMessageAsync(int chatId)
+        public async Task<ChatMessage> GetChatData(int chatId)
         {
             var query = "SELECT [name],[message],[expected_input_type] FROM [Hospital].[dbo].[chat_msg] WHERE id = @Id";
             return await _dbConnection.QueryFirstOrDefaultAsync<ChatMessage>(query, new { Id = chatId });

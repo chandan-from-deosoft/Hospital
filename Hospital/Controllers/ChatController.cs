@@ -4,7 +4,7 @@ using TestBot.Repository;
 namespace TestBot.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ChatController : ControllerBase
     {
         private readonly IChatMessageRepository _chatMessageRepository;
@@ -28,37 +28,45 @@ namespace TestBot.Controllers
         }
 
         [HttpGet("{type}")]
-        public async Task<IActionResult> GetChatDataByType(string type)
+        public async Task<IActionResult> GetChatData(string type)
         {
-            int chatId;
-
-            // Map types to their corresponding ChatIds
-            switch (type.ToLower())
+            try
             {
-                case "welcome":
-                    chatId = 1; // ChatId for "welcome"
-                    break;
-                case "mainmenu":
-                    chatId = 4; // ChatId for "mainMenu"
-                    break;
-                default:
+                // Map types to their corresponding ChatIds
+                int chatId = type.ToLower() switch
+                {
+                    "welcome" => 1,
+                    "mainmenu" => 4,
+                    _ => -1 // Assign -1 or some invalid value for unsupported types
+                };
+
+                if (chatId == -1)
+                {
                     return BadRequest(new { Message = $"Invalid type: {type}" });
+                }
+
+                var chatMessage = await _chatMessageRepository.GetChatData(chatId);
+
+                if (chatMessage == null)
+                {
+                    return NotFound(new { Message = $"No data found for ChatId {chatId}" });
+                }
+
+                return Ok(chatMessage); // Return the data directly as JSON
             }
-
-            var chatMessage = await _chatMessageRepository.GetChatMessageAsync(chatId);
-
-            if (chatMessage == null)
+            catch (Exception ex)
             {
-                return NotFound(new { Message = $"No data found for ChatId {chatId}" });
+                // Log the error and return a server error response
+                Console.Error.WriteLine(ex.Message);
+                return StatusCode(500, new { Message = "Server Error" });
             }
-
-            return Ok(new { Message = chatMessage });
         }
 
+
         [HttpGet("buttons/{chatDataId}")]
-        public async Task<IActionResult> GetChatButtonById(int chatDataId)
+        public async Task<IActionResult> GetOptionsData(int chatDataId)
         {
-            var chatButton = await _chatButtonRepository.GetChatButtonAsync(chatDataId);
+            var chatButton = await _chatButtonRepository.GetOptionsData(chatDataId);
             if (chatButton == null)
             {
                 return NotFound(new { Message = $"No data found for ChatId {chatDataId}" });
