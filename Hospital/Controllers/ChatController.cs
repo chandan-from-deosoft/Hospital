@@ -3,8 +3,6 @@ using TestBot.Repository;
 
 namespace TestBot.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
     public class ChatController : ControllerBase
     {
         private readonly IChatMessageRepository _chatMessageRepository;
@@ -19,71 +17,40 @@ namespace TestBot.Controllers
         }
 
 
-        [HttpGet("Greet")]
-        public async Task<IActionResult> GetGreetingMessage()
+        [HttpGet]
+        public async Task<IActionResult> GetChatData(int chatId)
         {
-            var message = await _chatMessageRepository.GetGreetingMessageAsync();
-
-            return Ok(new { Message = message });
-        }
-
-        [HttpGet("{type}")]
-        public async Task<IActionResult> GetChatData(string type)
-        {
-            try
+            var chatMsg = await _chatMessageRepository.GetChatData(chatId);
+            if (chatMsg == null)
             {
-                // Map types to their corresponding ChatIds
-                int chatId = type.ToLower() switch
-                {
-                    "welcome" => 1,
-                    "mainmenu" => 4,
-                    _ => -1 // Assign -1 or some invalid value for unsupported types
-                };
-
-                if (chatId == -1)
-                {
-                    return BadRequest(new { Message = $"Invalid type: {type}" });
-                }
-
-                var chatMessage = await _chatMessageRepository.GetChatData(chatId);
-
-                if (chatMessage == null)
-                {
-                    return NotFound(new { Message = $"No data found for ChatId {chatId}" });
-                }
-
-                return Ok(chatMessage); // Return the data directly as JSON
+                return NotFound(new { Message = $"No data found for ChatId {chatId}" });
             }
-            catch (Exception ex)
-            {
-                // Log the error and return a server error response
-                Console.Error.WriteLine(ex.Message);
-                return StatusCode(500, new { Message = "Server Error" });
-            }
+            return Ok(chatMsg);
         }
 
 
-        [HttpGet("buttons/{chatDataId}")]
-        public async Task<IActionResult> GetOptionsData(int chatDataId)
+        [HttpGet]
+        public async Task<IActionResult> GetOptionsData(int chatId)
         {
-            var chatButton = await _chatButtonRepository.GetOptionsData(chatDataId);
+            var chatButton = await _chatButtonRepository.GetOptionsData(chatId);
             if (chatButton == null)
             {
-                return NotFound(new { Message = $"No data found for ChatId {chatDataId}" });
+                return NotFound(new { Message = $"No data found for ChatId {chatId}" });
             }
             return Ok(chatButton);
         }
 
-        [HttpGet("appointmentStatus/{appointmentStatusId}")]
-        public async Task<IActionResult> GetAppointmentStatus(int appointmentStatusId)
+        [HttpGet]
+        public async Task<IActionResult> GetAppointmentStatus(int appointmentId)
         {
-            var appointmentStatus = await _appointmentRepository.GetAppointmentsAsync(appointmentStatusId);
+            var appointmentStatus = await _appointmentRepository.GetAppointmentsAsync(appointmentId);
             if (appointmentStatus == null)
             {
-                return NotFound(new { Message = $"No data found for AppointmentId {appointmentStatusId}" });
+                return NotFound(new { Message = $"No data found for AppointmentId {appointmentId}" });
             }
             return Ok(appointmentStatus);
         }
+
 
     }
 }

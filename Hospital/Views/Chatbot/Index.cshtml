@@ -1,452 +1,451 @@
-﻿<link rel="stylesheet" href="chat.css" />
-
+﻿
 <style>
-    .chat-bot-container {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-    }
+	.chat-bot-container {
+		position: fixed;
+		right: 20px;
+		bottom: 20px;
+	}
 
-        .chat-bot-container img {
-            width: 150px;
-            cursor: pointer;
-        }
+		.chat-bot-container img {
+			width: 150px;
+			cursor: pointer;
+		}
 
-    .chat-bot-wrapper {
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        display: none;
-        flex-direction: column;
-        /* border: 1px solid #777; */
-        overflow: hidden;
-        border-radius: 4px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        font-family: sans-serif;
-    }
+	.chat-bot-wrapper {
+		margin: 0;
+		padding: 0;
+		width: 300px;
+		display: none;
+		flex-direction: column;
+		/* border: 1px solid #777; */
+		overflow: hidden;
+		border-radius: 4px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		font-family: sans-serif;
+	}
 
-        .chat-bot-wrapper .chat-bot-header {
-            padding: 0 10px;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #03407e;
-            color: white;
-        }
+		.chat-bot-wrapper .chat-bot-header {
+			padding: 0 10px;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			background: #03407e;
+			color: white;
+		}
 
-    .header-right {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+	.header-right {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-    .chat-bot-wrapper .chat-bot-header h1 {
-        margin: 0;
-    }
+	.chat-bot-wrapper .chat-bot-header h1 {
+		margin: 0;
+	}
 
-    .chat-bot-wrapper .chat-bot-header button {
-        background: red;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 5px 8px;
-        cursor: pointer;
-        margin: 2px;
-    }
+	.chat-bot-wrapper .chat-bot-header button {
+		background: red;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		padding: 5px 8px;
+		cursor: pointer;
+		margin: 2px;
+	}
 
-    .chat-bot-wrapper .chat-bot-chat {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        height: 350px;
-        background: white;
-        padding: 10px;
-        overflow-y: auto;
-    }
+	.chat-bot-wrapper .chat-bot-chat {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		height: 350px;
+		background: white;
+		padding: 10px;
+		overflow-y: auto;
+	}
 
-        .chat-bot-wrapper .chat-bot-chat .chat-bot-chat-msg {
-            padding: 10px;
-            background: #0666c6;
-            color: white;
-            width: fit-content;
-            font-size: small;
-        }
+		.chat-bot-wrapper .chat-bot-chat .chat-bot-chat-msg {
+			padding: 10px;
+			background: #0666c6;
+			color: white;
+			width: fit-content;
+			font-size: small;
+		}
 
-            .chat-bot-wrapper .chat-bot-chat .chat-bot-chat-msg.left {
-                border-radius: 8px 0 8px 0;
-            }
+			.chat-bot-wrapper .chat-bot-chat .chat-bot-chat-msg.left {
+				border-radius: 8px 0 8px 0;
+			}
 
-            .chat-bot-wrapper .chat-bot-chat .chat-bot-chat-msg.right {
-                border-radius: 0 8px 0 8px;
-                align-self: flex-end;
-                background: #06c66c;
-            }
+			.chat-bot-wrapper .chat-bot-chat .chat-bot-chat-msg.right {
+				border-radius: 0 8px 0 8px;
+				align-self: flex-end;
+				background: #06c66c;
+			}
 
-        .chat-bot-wrapper .chat-bot-chat .chat-bot-chat-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+		.chat-bot-wrapper .chat-bot-chat .chat-bot-chat-options {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
 
-            .chat-bot-wrapper .chat-bot-chat .chat-bot-chat-options button.option-button {
-                font-size: small;
-                padding: 10px 20px;
-                background: #0666c6;
-                color: white;
-                width: fit-content;
-                border: none;
-                transition: 0.3s ease-in-out;
-                cursor: pointer;
-                border-radius: 8px;
-            }
+			.chat-bot-wrapper .chat-bot-chat .chat-bot-chat-options button.option-button {
+				font-size: small;
+				padding: 10px 20px;
+				background: #0666c6;
+				color: white;
+				width: fit-content;
+				border: none;
+				transition: 0.3s ease-in-out;
+				cursor: pointer;
+				border-radius: 8px;
+			}
 
-                .chat-bot-wrapper
-                .chat-bot-chat
-                .chat-bot-chat-options
-                button.option-button:hover {
-                    background: #03407e;
-                }
+				.chat-bot-wrapper
+				.chat-bot-chat
+				.chat-bot-chat-options
+				button.option-button:hover {
+					background: #03407e;
+				}
 
-    .chat-bot-wrapper .chat-bot-user {
-        padding: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-        background: white;
-    }
+	.chat-bot-wrapper .chat-bot-user {
+		padding: 10px;
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		background: white;
+	}
 
-        .chat-bot-wrapper .chat-bot-user .chat-bot-user-wrapper {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-        }
+		.chat-bot-wrapper .chat-bot-user .chat-bot-user-wrapper {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			border-radius: 4px;
+			overflow: hidden;
+		}
 
-            .chat-bot-wrapper .chat-bot-user .chat-bot-user-wrapper input {
-                padding: 5px;
-                flex: 1;
-                border: none;
-                font-size: small;
-            }
+			.chat-bot-wrapper .chat-bot-user .chat-bot-user-wrapper input {
+				padding: 5px;
+				flex: 1;
+				border: none;
+				font-size: small;
+			}
 
-            .chat-bot-wrapper .chat-bot-user .chat-bot-user-wrapper button {
-                padding: 5px;
-                border: none;
-                background: #03407e;
-                color: white;
-            }
+			.chat-bot-wrapper .chat-bot-user .chat-bot-user-wrapper button {
+				padding: 5px;
+				border: none;
+				background: #03407e;
+				color: white;
+			}
 
-    .chat-bot-wrapper .chat-bot-footer {
-        padding: 10px;
-        background: #03407e;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: white;
-    }
+	.chat-bot-wrapper .chat-bot-footer {
+		padding: 10px;
+		background: #03407e;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: white;
+	}
 
-        .chat-bot-wrapper .chat-bot-footer .footer-main-menu {
-            border: none;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: small;
-            background: #03407e;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: white;
-            cursor: pointer;
-            transition: 0.3s ease-in-out;
-        }
+		.chat-bot-wrapper .chat-bot-footer .footer-main-menu {
+			border: none;
+			border-radius: 4px;
+			padding: 10px;
+			font-size: small;
+			background: #03407e;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			color: white;
+			cursor: pointer;
+			transition: 0.3s ease-in-out;
+		}
 
-            .chat-bot-wrapper .chat-bot-footer .footer-main-menu:hover {
-                background: white;
-                color: #03407e;
-            }
+			.chat-bot-wrapper .chat-bot-footer .footer-main-menu:hover {
+				background: white;
+				color: #03407e;
+			}
 
-        .chat-bot-wrapper .chat-bot-footer a {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: small;
-        }
+		.chat-bot-wrapper .chat-bot-footer a {
+			color: inherit;
+			text-decoration: none;
+			cursor: pointer;
+			font-size: small;
+		}
 
-    /* Overlay image (hidden by default) */
-    .input-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        /* Ensures image fits nicely */
-        pointer-events: none;
-        /* Prevents the image from blocking clicks */
-        opacity: 0;
-        /* Initially hidden */
-        transition: opacity 0.3s ease-in-out;
-        /* Smooth fade-in effect */
-    }
+	/* Overlay image (hidden by default) */
+	.input-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		/* Ensures image fits nicely */
+		pointer-events: none;
+		/* Prevents the image from blocking clicks */
+		opacity: 0;
+		/* Initially hidden */
+		transition: opacity 0.3s ease-in-out;
+		/* Smooth fade-in effect */
+	}
 
-    /* Show the image when input is disabled and hovered */
-    .input-container:hover .input-a:disabled + .input-overlay {
-        opacity: 1;
-    }
+	/* Show the image when input is disabled and hovered */
+	.input-container:hover .input-a:disabled + .input-overlay {
+		opacity: 1;
+	}
 
-    body {
-        overflow: hidden;
-        background-color: transparent;
-    }
+	body {
+		overflow: hidden;
+		background-color: transparent;
+	}
 </style>
 
 
 
 <div class="chat-bot-container" id="chat-bot">
-    <img class="chat-bot-img" src="~/images/chatbot.gif" alt="Chatbot Icon" />
-    <div class="chat-bot-wrapper">
-        <div class="chat-bot-header">
-            <h3>ChatBot</h3>
-            <button id="chat-bot-close-btn" aria-label="Close Chatbot">✖</button>
-        </div>
-        <div class="chat-bot-chat" aria-live="polite">
-            <!-- Chat messages will appear here -->
-        </div>
-       
-        <div class="chat-bot-user">
-            <input type="text"
-                   class="input-a name-input"
-                   placeholder="Type your message..."
-                   aria-label="Type your message" />
-            <button class="submit-btn" aria-label="Send Message">Send</button>
-        </div>
-        <div class="chat-bot-footer">
-            <button class="footer-main-menu" aria-label="Go to Main Menu">Main Menu</button>
-        </div>
-    </div>
+	<img class="chat-bot-img" src="~/images/chatbot.gif" alt="Chatbot Icon" />
+	<div class="chat-bot-wrapper">
+		<div class="chat-bot-header">
+			<h3>ChatBot</h3>
+			<button id="chat-bot-close-btn" aria-label="Close Chatbot">✖</button>
+		</div>
+		<div class="chat-bot-chat" aria-live="polite">
+			<!-- Chat messages will appear here -->
+		</div>
+
+		<div class="chat-bot-user">
+			<input type="text"
+				   class="input-a name-input"
+				   placeholder="Type your message..."
+				   aria-label="Type your message" />
+			<button class="submit-btn" aria-label="Send Message">Send</button>
+		</div>
+		<div class="chat-bot-footer">
+			<button class="footer-main-menu" aria-label="Go to Main Menu">Main Menu</button>
+		</div>
+	</div>
 </div>
 
 <script>
-       // Select chatbot elements
-    let chatBot = document.getElementById("chat-bot");
-    let chatBotImg = chatBot.querySelector("img.chat-bot-img");
-    let chatBotWrapper = chatBot.querySelector(".chat-bot-wrapper");
+	   // Select chatbot elements
+	let chatBot = document.getElementById("chat-bot");
+	let chatBotImg = chatBot.querySelector("img.chat-bot-img");
+	let chatBotWrapper = chatBot.querySelector(".chat-bot-wrapper");
 
-    const chatMessageContainer = document.querySelector(".chat-bot-chat");
-    const nameInput = document.querySelector(".name-input");
-    const submitNameBtn = document.querySelector(".submit-btn");
-    const mainMenuBtn = document.querySelector(".footer-main-menu");
-    const inputField = document.getElementById("input-a name-input");
+	const chatMessageContainer = document.querySelector(".chat-bot-chat");
+	const nameInput = document.querySelector(".name-input");
+	const submitNameBtn = document.querySelector(".submit-btn");
+	const mainMenuBtn = document.querySelector(".footer-main-menu");
+	const inputField = document.getElementById("input-a name-input");
 
-    // Add click event listener to the chatbot image
-    chatBotImg.addEventListener("click", () => {
-      // Hide the chatbot image and display the chatbot wrapper
-      chatBotImg.style.display = "none";
-      chatBotWrapper.style.display = "flex";
+	// Add click event listener to the chatbot image
+	chatBotImg.addEventListener("click", () => {
+	  // Hide the chatbot image and display the chatbot wrapper
+	  chatBotImg.style.display = "none";
+	  chatBotWrapper.style.display = "flex";
 
-      // Add functionality to the close button
-      let chatBotCloseBtn = document.getElementById("chat-bot-close-btn");
-      chatBotCloseBtn.addEventListener("click", () => {
-        // Show the chatbot image and hide the chatbot wrapper
-        chatBotImg.style.display = "block";
-        chatBotWrapper.style.display = "none";
-      });
-    });
+	  // Add functionality to the close button
+	  let chatBotCloseBtn = document.getElementById("chat-bot-close-btn");
+	  chatBotCloseBtn.addEventListener("click", () => {
+		// Show the chatbot image and hide the chatbot wrapper
+		chatBotImg.style.display = "block";
+		chatBotWrapper.style.display = "none";
+	  });
+	});
 
-    function addMessage(message, isUser = false) {
-      const messageDiv = document.createElement("div");
-      messageDiv.className = `chat-bot-chat-msg ${isUser ? "right" : "left"}`;
-      messageDiv.textContent = message;
-      //messageDiv.innerHTML = `<pre>${message}</pre>`;
+	function addMessage(message, isUser = false) {
+	  const messageDiv = document.createElement("div");
+	  messageDiv.className = `chat-bot-chat-msg ${isUser ? "right" : "left"}`;
+	  messageDiv.textContent = message;
+	  //messageDiv.innerHTML = `<pre>${message}</pre>`;
 
-      chatMessageContainer.appendChild(messageDiv);
-      chatMessageContainer.scrollTop = chatMessageContainer.scrollHeight;
+	  chatMessageContainer.appendChild(messageDiv);
+	  chatMessageContainer.scrollTop = chatMessageContainer.scrollHeight;
 
-      nameInput.disabled = false;
-      submitNameBtn.disabled = false;
-    }
+	  nameInput.disabled = false;
+	  submitNameBtn.disabled = false;
+	}
 
-    async function showOptions(options) {
-      if (!Array.isArray(options)) {
-        console.error("Invalid options data:", options);
-        return;
-      }
+	async function showOptions(options) {
+	  if (!Array.isArray(options)) {
+		console.error("Invalid options data:", options);
+		return;
+	  }
 
-      nameInput.disabled = true;
-      submitNameBtn.disabled = true;
+	  nameInput.disabled = true;
+	  submitNameBtn.disabled = true;
 
-      const optContainer = document.createElement("div");
-      optContainer.className = "chat-bot-chat-options";
-      for (const option of options) {
-        const button = document.createElement("button");
-        button.className = "option-button";
-        button.textContent = option.text;
+	  const optContainer = document.createElement("div");
+	  optContainer.className = "chat-bot-chat-options";
+	  for (const option of options) {
+		const button = document.createElement("button");
+		button.className = "option-button";
+		button.textContent = option.text;
 
-        button.onclick = async () => {
-          addMessage(option.text, true);
+		button.onclick = async () => {
+		  addMessage(option.text, true);
 
-          const nextState = option.next;
-          const [nextMessage] = await getChatReplyMessage(nextState);
+		  const nextState = option.next;
+		  const [nextMessage] = await getChatReplyMessage(nextState);
 
-          if (nextMessage) {
-            setTimeout(() => {
-              addMessage(nextMessage.message);
-            }, 1000);
+		  if (nextMessage) {
+			setTimeout(() => {
+			  addMessage(nextMessage.message);
+			}, 1000);
 
-            const nextOptions = await getChatReplyOptions(nextState);
-            if (nextOptions.length) showOptions(nextOptions);
-          }
-        };
+			const nextOptions = await getChatReplyOptions(nextState);
+			if (nextOptions.length) showOptions(nextOptions);
+		  }
+		};
 
-        optContainer.appendChild(button);
-      }
-      chatMessageContainer.appendChild(optContainer);
-      chatMessageContainer.scrollTop = chatMessageContainer.scrollHeight;
-    }
+		optContainer.appendChild(button);
+	  }
+	  chatMessageContainer.appendChild(optContainer);
+	  chatMessageContainer.scrollTop = chatMessageContainer.scrollHeight;
+	}
 
-    //change
+	//change
 
-    submitNameBtn.addEventListener("click", async () => {
-      const inputValue = nameInput.value.trim();
-      //change
-      // if (/^\d+$/.test(inputValue)) {
-      //   alert("Please enter only letters (no special characters) for this field.");
-      //   return;
-      // } else if (!/^[a-zA-Z]+$/.test(inputValue)) {
-      //   alert("Please enter only letters (no special characters) for this field.");
-      //   return;
-      // }
+	submitNameBtn.addEventListener("click", async () => {
+	  const inputValue = nameInput.value.trim();
+	  //change
+	  // if (/^\d+$/.test(inputValue)) {
+	  //   alert("Please enter only letters (no special characters) for this field.");
+	  //   return;
+	  // } else if (!/^[a-zA-Z]+$/.test(inputValue)) {
+	  //   alert("Please enter only letters (no special characters) for this field.");
+	  //   return;
+	  // }
 
-      submitNameBtn.disabled = true;
-      nameInput.value = ""; // Clear the input field
+	  submitNameBtn.disabled = true;
+	  nameInput.value = ""; // Clear the input field
 
 
-      if (inputValue) {
-        // Check if input is numeric to determine if it's an appointment ID
-        if (!isNaN(inputValue)) {
-          addMessage(`Fetching status for Appointment ID: ${inputValue}`, true);
+	  if (inputValue) {
+		// Check if input is numeric to determine if it's an appointment ID
+		if (!isNaN(inputValue)) {
+		  addMessage(`Fetching status for Appointment ID: ${inputValue}`, true);
 
-          const result = await getAppointmentStatus(inputValue);
+		  const result = await getAppointmentStatus(inputValue);
 
-          if (result.error) {
-            addMessage(`Error: ${result.error}`);
-          } else {
-            addMessage(`Appointment Details:
-            - ID: ${result.appointment_id}
-            - Patient: ${result.patient_name}
-            - Doctor: ${result.doctor_name}
-            - Date: ${result.appointment_date}
-            - Time: ${result.appointment_time}
-            - Status: ${result.status}`);
-          }
-          setTimeout(async () => {
-            await getChatReplyMessage(4).then(async (data) => {
-              let mainMenuMessage = data[0];
-              await getChatReplyOptions(4).then((data) => {
-                let mainMenuOptions = data;
-                addMessage(mainMenuMessage.message);
-                showOptions(mainMenuOptions);
-              });
-            });
-          }, 4000);
-        } else {
-          // If input is not numeric, treat it as a name
-          addMessage(`${inputValue}`, true);
-          addMessage(`Hello ${inputValue}! Nice to meet you.`);
+		  if (result.error) {
+			addMessage(`Error: ${result.error}`);
+		  } else {
+			addMessage(`Appointment Details:
+			- ID: ${result[0].appointmentId}
+			- Patient: ${result[0].patientName}
+			- Doctor: ${result[0].doctorId}
+			- Date: ${result[0].appointmentTime}
+			- Time: ${result[0].appointmentTime}
+			- Status: ${result[0].status}`);
+		  }
+		  setTimeout(async () => {
+			await getChatReplyMessage(4).then(async (data) => {
+			  let mainMenuMessage = data[0];
+			  await getChatReplyOptions(4).then((data) => {
+				let mainMenuOptions = data;
+				addMessage(mainMenuMessage.message);
+				showOptions(mainMenuOptions);
+			  });
+			});
+		  }, 4000);
+		} else {
+		  // If input is not numeric, treat it as a name
+		  addMessage(`${inputValue}`, true);
+		  addMessage(`Hello ${inputValue}! Nice to meet you.`);
 
-          await getChatReplyMessage(4).then(async (data) => {
-            let mainMenuMessage = data[0];
-            await getChatReplyOptions(4).then((data) => {
-              let mainMenuOptions = data;
-              addMessage(mainMenuMessage.message);
-              showOptions(mainMenuOptions);
-            });
-          });
-        }
-      }
-    });
+		  await getChatReplyMessage(4).then(async (data) => {
+			let mainMenuMessage = data[0];
+			await getChatReplyOptions(4).then((data) => {
+			  let mainMenuOptions = data;
+			  addMessage(mainMenuMessage.message);
+			  showOptions(mainMenuOptions);
+			});
+		  });
+		}
+	  }
+	});
 
-    async function getChatReplyMessage(chatId) {
-      return await fetch(`/chat/message/get/${chatId}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          return Array.isArray(data) ? data : [data];
-        }) // Ensure the data is an array
-        .catch((error) => console.error("Error fetching data:", error));
-    }
+	async function getChatReplyMessage(chatId) {
+		var url = '@Url.Action("GetChatData", "Chat")';
+	  return await fetch(`${url}?chatId=${chatId}`)
+		.then((response) => {
+		  if (!response.ok) {
+			throw new Error("Network response was not ok " + response.statusText);
+		  }
+		  return response.json();
+		})
+		.then((data) => {
+		  return Array.isArray(data) ? data : [data];
+		}) // Ensure the data is an array
+		.catch((error) => console.error("Error fetching data:", error));
+	}
 
-    async function getChatReplyOptions(chatId) {
-      return await fetch(`/chat/options/get/${chatId}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          return data;
-        }) // Ensure the data is an array
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    }
+	async function getChatReplyOptions(chatId) {
+		var url = '@Url.Action("GetOptionsData", "Chat")';
+	  return await fetch(`${url}?chatId=${chatId}`)
+		.then((response) => {
+		  if (!response.ok) {
+			throw new Error("Network response was not ok " + response.statusText);
+		  }
+		  return response.json();
+		})
+		.then((data) => {
+		  return data;
+		}) // Ensure the data is an array
+		.catch((error) => {
+		  console.error("Error fetching data:", error);
+		});
+	}
 
-  
-    getChatReplyMessage(1).then(function (data) {
-      const message = data[0].message;
-      addMessage(message);
 
-      // Enable the send button and input field based on a condition
+	getChatReplyMessage(1).then(function (data) {
+	  const message = data[0].message;
+	  addMessage(message);
 
-      if (message && message.length > 0) {
-        submitNameBtn.disabled = false;
-        inputField.disabled = false;
-      } else {
-        sendBtn.disabled = true;
-        inputField.disabled = true;
-      }
+	  // Enable the send button and input field based on a condition
 
-      getChatReplyOptions(1).then(function (data) {
-        showOptions(data);
-      });
-    });
+	  if (message && message.length > 0) {
+		submitNameBtn.disabled = false;
+		inputField.disabled = false;
+	  } else {
+		sendBtn.disabled = true;
+		inputField.disabled = true;
+	  }
 
-    mainMenuBtn.addEventListener("click", async () => {
-      // chatMessageContainer.innerHTML = "";
-      await getChatReplyMessage(4).then(async (data) => {
-        let mainMenuMessage = data[0];
-        await getChatReplyOptions(4).then((data) => {
-          let mainMenuOptions = data;
-          addMessage(mainMenuMessage.message);
-          showOptions(mainMenuOptions);
-        });
-      });
-    });
+	  getChatReplyOptions(1).then(function (data) {
+		showOptions(data);
+	  });
+	});
 
-    //appointment status
-    async function getAppointmentStatus(appointmentId) {
-      return await fetch("/chat/appointment-status", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ appointment_id: appointmentId }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              "Failed to fetch appointment status: " + response.statusText
-            );
-          }
-          return response.json();
-        })
-        .catch((error) => {
-          console.error("Error fetching appointment status:", error);
-          return { error: error.message };
-        });
-    }
+	mainMenuBtn.addEventListener("click", async () => {
+	  // chatMessageContainer.innerHTML = "";
+	  await getChatReplyMessage(4).then(async (data) => {
+		let mainMenuMessage = data[0];
+		await getChatReplyOptions(4).then((data) => {
+		  let mainMenuOptions = data;
+		  addMessage(mainMenuMessage.message);
+		  showOptions(mainMenuOptions);
+		});
+	  });
+
+
+
+	});
+
+	//appointment status
+	async function getAppointmentStatus(appointmentId) {
+		
+	  var url = '@Url.Action("GetAppointmentStatus", "Chat")';
+	  return await fetch(`${url}?appointmentId=${appointmentId}`)
+		.then((response) => {
+		  if (!response.ok) {
+			throw new Error("Network response was not ok " + response.statusText);
+		  }
+		  return response.json();
+		})
+		.then((data) => {
+		  return Array.isArray(data) ? data : [data];
+		}) // Ensure the data is an array
+		.catch((error) => console.error("Error fetching data:", error));
+	 
+	}
 </script>
 
